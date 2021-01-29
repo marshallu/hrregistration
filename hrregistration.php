@@ -116,6 +116,7 @@ function hrregistration( $atts ) {
 				$cnumber = filter_var( $_GET['cnumber'], FILTER_SANITIZE_STRING );
 
 				echo '<form method="POST" action="/human-resources/training/course-registration/?action=y" name="hrtraining">';
+				echo wp_nonce_field( 'hr_reg_'.$_GET['cnumber'] );
 				echo '<div class="my-2">';
 				echo '<label class="block vfb-desc" for="MUID">MUID Number</label>';
 				echo '<input type="text" class="text-input" name="MUID" max="9" min="9" placeholder="901xxxxxx" />';
