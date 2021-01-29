@@ -48,11 +48,12 @@ function hrregistration( $atts ) {
 
 	$conn = sqlsrv_connect( $server_name, $connection_info );
 
-	if ( ! isset( $_POST['hr_register'] ) || ! wp_verify_nonce( $_POST['hr_register'], 'asdf' ) ) {
-	   wp_nonce_ays( '' );
-	}
+
 
 	if ( isset( $_GET['action'] ) && isset( $_POST['CourseNo'] ) ) {
+		if ( ! isset( $_POST['hr_register'] ) || ! wp_verify_nonce( $_POST['hr_register'], 'asdf' ) ) {
+
+		}
 
 		$mycourse = filter_var( $_POST['CourseNo'] );
 		$mydate   = date( 'Y-m-d' );
