@@ -48,6 +48,10 @@ function hrregistration( $atts ) {
 
 	$conn = sqlsrv_connect( $server_name, $connection_info );
 
+	// if ( ! isset( $_POST['name_of_nonce_field'] ) || ! wp_verify_nonce( $_POST['name_of_nonce_field'], 'name_of_my_action' ) ) {
+	//    wp_nonce_ays( '' );
+	// }
+
 	if ( isset( $_GET['action'] ) && isset( $_POST['CourseNo'] ) ) {
 
 		$mycourse = filter_var( $_POST['CourseNo'] );
@@ -120,8 +124,8 @@ function hrregistration( $atts ) {
 
 		if ( $seats_left > 0 ) {
 			if ( isset( $cnumber ) ) {
-				echo '<form method="POST" action="/human-resources/training/course-registration/?action=y" name="hrtraining">';
-				wp_nonce_field( 'hr_reg_' . $cnumber );
+				echo '<form method="POST" action="/human-resources/training/course-registration/?action=y&cnumber=' . esc_attr( $cnumber ) . '" name="hrtraining">';
+				wp_nonce_field( 'hr_register' );
 				echo '<div class="my-2">';
 				echo '<label class="block vfb-desc" for="MUID">MUID Number</label>';
 				echo '<input type="text" class="text-input" name="MUID" max="9" min="9" placeholder="901xxxxxx" />';
