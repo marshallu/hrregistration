@@ -125,7 +125,7 @@ function hrregistration( $atts ) {
 		if ( $seats_left > 0 ) {
 			if ( isset( $cnumber ) ) {
 				echo '<form method="POST" action="/human-resources/training/course-registration/?action=y&cnumber=' . esc_attr( $cnumber ) . '" name="hrtraining">';
-				wp_nonce_field( 'hr_register' );
+				wp_nonce_field( 'hr_register', 'hr_register' );
 				echo '<div class="my-2">';
 				echo '<label class="block vfb-desc" for="MUID">MUID Number</label>';
 				echo '<input type="text" class="text-input" name="MUID" max="9" min="9" placeholder="901xxxxxx" />';
