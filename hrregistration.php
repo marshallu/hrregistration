@@ -33,7 +33,7 @@ function hrregistration( $atts ) {
 	);
 
 	if ( isset( $_GET['cnumber'] ) ) {
-		$cnumber = esc_url_raw( wp_unslash( $_GET['cnumber'] ) );
+		$cnumber = intval( wp_unslash( $_GET['cnumber'] ) );
 	} else {
 		$cnumber = null;
 	}
