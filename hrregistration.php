@@ -99,7 +99,6 @@ function hrregistration( $atts ) {
 			if ( ! $stmt ) {
 				echo 'Sorry there was an issue with your registration, please try again.';
 			} else {
-				echo 'You have successfully registered!';
 
 				$email_body  = 'You have successfully registered for ' . $course_name . ' at ' . $course_location . ' on ' . $course_day . ' at ' . $course_start_time . ' - ' . $course_end_time;
 				$email_body .= ".\r\r";
@@ -107,6 +106,9 @@ function hrregistration( $atts ) {
 
 				$headers = 'From: human-resources@marshall.edu';
 				mail( $email, 'HR Training Registration', $email_body, $headers );
+
+				header( 'Location: http://www.marshall.edu/human-resources/training-confirmation/' );
+				exit;
 			}
 		}
 	}
