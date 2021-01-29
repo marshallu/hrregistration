@@ -40,7 +40,7 @@ function hrregistration( $atts ) {
 		'PWD'      => $config['password'],
 	);
 
-	echo plugin_dir_path( __FILE__ ) . 'config.php';
+	$conn = sqlsrv_connect( $server_name, $connection_info );
 
 	if ( isset( $_GET['action'] ) && isset( $_POST['CourseNo'] ) ) {
 
