@@ -32,6 +32,12 @@ function hrregistration( $atts ) {
 		$atts
 	);
 
+	if ( isset( $_GET['cnumber'] ) ) {
+		$cnumber = esc_url_raw( wp_unslash( $_GET['cnumber'] ) );
+	} else {
+		$cnumber = null;
+	}
+
 	$config          = include plugin_dir_path( __FILE__ ) . 'config.php';
 	$server_name     = $config['server'];
 	$connection_info = array(
@@ -94,15 +100,16 @@ function hrregistration( $atts ) {
 		   }
 		}
 	}
-	$class_sql  = "SELECT * FROM Courses WHERE CourseNo = '" . esc_attr( $_GET['cnumber'] ) . "'";
+
+	$class_sql  = "SELECT * FROM Courses WHERE CourseNo = '" . esc_attr( $cnumber ) . "'";
 	$class_stmt = sqlsrv_query( $conn, $class_sql, array(), array( 'Scrollable' => 'static' ) );
 
 	if ( ! $class_stmt ) {
-		die( print_r( sqlsrv_errors(), true) );
+		die( wp_kses_post( print_r( sqlsrv_errors(), true ) ) );
 	}
 
 	while ( $row = sqlsrv_fetch_array( $class_stmt, SQLSRV_FETCH_ASSOC ) ) {
-		$count_sql = "SELECT * FROM Registrations WHERE CourseNo = '" . esc_attr( $_GET['cnumber'] ) . "'";
+		$count_sql = "SELECT * FROM Registrations WHERE CourseNo = '" . esc_attr( $cnumber ) . "'";
 		$count     = sqlsrv_query( $conn, $count_sql, array(), array( 'Scrollable' => 'static' ) );
 
 		$seats_left = $row['Seats'] - sqlsrv_num_rows( $count );
@@ -112,11 +119,9 @@ function hrregistration( $atts ) {
 		}
 
 		if ( $seats_left > 0 ) {
-			if ( isset( $_GET['cnumber'] ) ) {
-				$cnumber = filter_var( $_GET['cnumber'], FILTER_SANITIZE_STRING );
-
+			if ( isset( $cnumber ) ) {
 				echo '<form method="POST" action="/human-resources/training/course-registration/?action=y" name="hrtraining">';
-				wp_nonce_field( 'hr_reg_'.$_GET['cnumber'] );
+				wp_nonce_field( 'hr_reg_' . $cnumber );
 				echo '<div class="my-2">';
 				echo '<label class="block vfb-desc" for="MUID">MUID Number</label>';
 				echo '<input type="text" class="text-input" name="MUID" max="9" min="9" placeholder="901xxxxxx" />';
