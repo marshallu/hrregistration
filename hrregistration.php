@@ -40,6 +40,8 @@ function hrregistration( $atts ) {
 		'PWD'      => $config['password'],
 	);
 
+	echo $config;
+
 	if ( isset( $_GET['action'] ) && isset( $_POST['CourseNo'] ) ) {
 
 		$mycourse = filter_var( $_POST['CourseNo'] );
