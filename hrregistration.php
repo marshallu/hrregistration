@@ -40,7 +40,7 @@ function hrregistration( $atts ) {
 		'PWD'      => $config['password'],
 	);
 
-	echo $config;
+	echo plugin_dir_path( __FILE__ ) . 'config.php';
 
 	if ( isset( $_GET['action'] ) && isset( $_POST['CourseNo'] ) ) {
 
